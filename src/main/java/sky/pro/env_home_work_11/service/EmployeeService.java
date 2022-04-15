@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
-public interface EmployeeService  {
+public interface EmployeeService {
     Employee getEmployee(Integer number);
 
     String addEmployee(Employee employees);
@@ -19,4 +19,7 @@ public interface EmployeeService  {
     List<Employee> getEmployeeList();
 
     Collection<Employee> findAll();
+
+    Employee check(String firstname, String lastname);
+
 }

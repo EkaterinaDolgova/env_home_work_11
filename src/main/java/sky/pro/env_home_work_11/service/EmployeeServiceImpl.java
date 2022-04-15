@@ -50,8 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (StringUtils.isAlpha(employee.getName()) || StringUtils.isAlpha(employee.getFamily())) {
             employees.put(getNextId(), employee);
             return employee.toString();
-        }
-        throw new EmployeeNotFoundException("Ошибка. Введены недопустимые символы");
+        } else throw new EmployeeNotFoundException("Ошибка. Введены недопустимые символы");
 
     }
 
@@ -60,10 +59,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (StringUtils.isAlpha(employee.getName()) || StringUtils.isAlpha(employee.getFamily())) {
             if (employees.containsValue(employee)) {
                 return "Данный сотрудник найден";
-            }
-            throw new EmployeeNotFoundException("Ошибка, сотрудник не найден");
-        }
-        throw new EmployeeNotFoundException("Ошибка. Введены недопустимые символы");
+            } else throw new EmployeeNotFoundException("Ошибка, сотрудник не найден");
+        } else throw new EmployeeNotFoundException("Ошибка. Введены недопустимые символы");
     }
 
     @Override
@@ -72,11 +69,19 @@ public class EmployeeServiceImpl implements EmployeeService {
             employees.remove(id);
             return " Данный сотрудник удален";
 
-        }
-        throw new EmployeeNotFoundException("Ошибка, сотрудника не найден");
+        } else throw new EmployeeNotFoundException("Ошибка, сотрудника не найден");
     }
 
     public Collection<Employee> findAll() {
         return Collections.unmodifiableCollection(employees.values());
+    }
+
+    @Override
+    public Employee check(String firstname, String lastname) {
+        if (StringUtils.isAlpha(firstname) || StringUtils.isAlpha(lastname)) {
+            Employee employee = new Employee(StringUtils.capitalize(firstname), StringUtils.capitalize(lastname));
+            return (employee);
+        } else throw new EmployeeNotFoundException("Ошибка. Введены недопустимые символы");
+
     }
 }

@@ -29,14 +29,12 @@ public class EmployeeController {
 
     @GetMapping(path = "/employee/add")
     public String employeeAdd(@RequestParam String firstname, @RequestParam String lastname) {
-        Employee employee = new Employee(StringUtils.capitalize(firstname), StringUtils.capitalize(lastname));
-        return employeeService.addEmployee(employee);
+        return employeeService.addEmployee(employeeService.check(firstname, lastname));
     }
 
     @GetMapping(path = "/employee/search")
     public String employeeSearch(@RequestParam String firstname, @RequestParam String lastname) {
-        Employee employee = new Employee(firstname, lastname);
-        return employeeService.searchEmployee(employee);
+        return employeeService.searchEmployee(employeeService.check(firstname, lastname));
     }
 
     @GetMapping(path = "/employee/delete")
