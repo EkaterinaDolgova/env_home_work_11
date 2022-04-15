@@ -5,22 +5,10 @@ import java.util.Objects;
 public class Employee {
     private String name;
     private String family;
-    private Integer department;
-    private Integer salary;
 
-    public Employee(String name, String family, Integer department, Integer salary) {
+    public Employee(String name, String family) {
         this.name = name;
         this.family = family;
-        this.department = department;
-        this.salary = salary;
-
-    }
-
-    public Employee(String firstname, String lastname) {
-    }
-
-    public String Employee(String firstname, String lastname) {
-        return this.family;
     }
 
     public String getName() {
@@ -31,23 +19,7 @@ public class Employee {
         return this.family;
     }
 
-    public Integer getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Integer department) {
-        this.department = department;
-    }
-
-    public Integer getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Integer salary) {
-        this.salary = salary;
-    }
-
-    @Override
+  @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -62,7 +34,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Имя: " + this.name + " Фамилия: " + this.family+ " Отдел: " + this.department + " Зарплата: " + this.salary;
+        return "Имя: " + this.name + " Фамилия: " + this.family;
     }
 
 

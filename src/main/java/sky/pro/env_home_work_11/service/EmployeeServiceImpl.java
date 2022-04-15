@@ -1,11 +1,12 @@
 package sky.pro.env_home_work_11.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import sky.pro.env_home_work_11.domain.Employee;
 import sky.pro.env_home_work_11.exception.EmployeeNotFoundException;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -14,10 +15,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public EmployeeServiceImpl() {
         this.employees = new HashMap<>();
-        employees.put(getNextId(), new Employee("Иван", "Иванов", 5, 50000));
-        employees.put(getNextId(), new Employee("Петр", "Петров", 5, 54000));
-        employees.put(getNextId(), new Employee("Владимир", "Иванченко", 1, 100000));
-        employees.put(getNextId(), new Employee("Степан", "Казанцев", 1, 140000));
+        employees.put(getNextId(), new Employee("Иван", "Иванов"));
+        employees.put(getNextId(), new Employee("Петр", "Петров"));
+        employees.put(getNextId(), new Employee("Владимир", "Иванченко"));
+        employees.put(getNextId(), new Employee("Степан", "Казанцев"));
     }
 
 
@@ -46,16 +47,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employees.containsValue(employee)) {
             return "Данный сотрудник есть в базе данных";
         }
-        employees.put(getNextId(), employee);
-        return employee.toString();
+        if (StringUtils.isAlpha(employee.getName()) || StringUtils.isAlpha(employee.getFamily())) {
+            employees.put(getNextId(), employee);
+            return employee.toString();
+        }
+        throw new EmployeeNotFoundException("Ошибка. Введены недопустимые символы");
+
     }
 
     @Override
     public String searchEmployee(Employee employee) {
-        if (employees.containsValue(employee)) {
-            return "Данный сотрудник найден";
+        if (StringUtils.isAlpha(employee.getName()) || StringUtils.isAlpha(employee.getFamily())) {
+            if (employees.containsValue(employee)) {
+                return "Данный сотрудник найден";
+            }
+            throw new EmployeeNotFoundException("Ошибка, сотрудник не найден");
         }
-        throw new EmployeeNotFoundException("Ошибка, сотрудник не найден");
+        throw new EmployeeNotFoundException("Ошибка. Введены недопустимые символы");
     }
 
     @Override
